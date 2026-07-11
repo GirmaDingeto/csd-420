@@ -1,0 +1,25 @@
+/*mystyle.css*/
+
+/*Class selector for white fill and black stroke color*/
+.whiteBlack {
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
+}
+
+/* ID Selector for the red circle*/
+#redCircle {
+    -fx-fill: red;
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
+
+}
+
+/* ID selector for the green circle */
+#greenCircle {
+    -fx-fill: green;
+     -fx-stroke: black;
+    -fx-stroke-width: 2;
+
+
+}
