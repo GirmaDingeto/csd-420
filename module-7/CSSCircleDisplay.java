@@ -1,14 +1,9 @@
-/*
- * Create an external CSS style sheet that defines:
- *   - A class for white fill and black stroke
- *   - IDs for red and green fill colors
+/* Girma Dingeto, CSD420 Module 7.2 Assignment, 07/12/2026
  *
- * Write a JavaFX program that displays four circles and uses
- * the style class and IDs.
- *
- * Write test code that ensures your code functions correctly.
- *
- * https://media.pearsoncmg.com/ph/php8/sites/ecs_liang_java_12/cw/#web-chapters
+ * Displays four circles using external CSS.
+ * The first circle is inside a vertical black-bordered rectangle.
+ * The rectangle width equals the circle diameter so they touch.
+ * All circles remain on the same horizontal axis.
  */
 
 package com.girma.csscircledisplay;
@@ -17,6 +12,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;   // REQUIRED
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -25,12 +21,8 @@ public class CSSCircleDisplay extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        /** Create an HBox container with spacing and center alignment */
-        HBox pane = new HBox(15);
-        pane.setAlignment(Pos.CENTER);
-
         /** Create circle #1 and apply the shared CSS class */
-        Circle c1 = new Circle(50);
+        Circle c1 = new Circle(50);   // diameter = 100
         c1.getStyleClass().add("whiteBlack");
 
         /** Create circle #2 and apply the shared CSS class */
@@ -47,11 +39,32 @@ public class CSSCircleDisplay extends Application {
         c4.getStyleClass().add("whiteBlack");
         c4.setId("greenCircle");
 
-        /** Add all circles to an HBox layout */
-        HBox root = new HBox(20, c1, c2, c3, c4);
+        /** Create a vertical bordered box for the first circle */
+        VBox borderedBox = new VBox(c1);
+        borderedBox.setAlignment(Pos.CENTER);
+
+        /** Make the box width EXACTLY equal to the circle diameter */
+        borderedBox.setPrefWidth(100);
+        borderedBox.setMinWidth(100);
+        borderedBox.setMaxWidth(100);
+
+        /** Make the box tall */
+        borderedBox.setPrefHeight(200);
+
+        /** Darker and thicker border */
+        borderedBox.setStyle(
+            "-fx-border-color: #000000;" +   /* pure black */
+            "-fx-border-width: 8px;" +       /* thick border */
+            "-fx-border-style: solid;" +
+            "-fx-border-insets: 0;"
+        );
+
+        /** Put all circles on the same horizontal axis */
+        HBox root = new HBox(20, borderedBox, c2, c3, c4);
+        root.setAlignment(Pos.CENTER);
 
         /** Create a scene and load the external CSS file */
-        Scene scene = new Scene(root, 400, 150);
+        Scene scene = new Scene(root, 600, 250);
         scene.getStylesheets().add(
             getClass().getResource("/mystyle.css").toExternalForm()
         );
